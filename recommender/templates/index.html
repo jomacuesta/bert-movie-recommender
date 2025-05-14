@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommender</title>
+    <style>
+        /* Estilo general */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #141414;
+            color: #ffffff;
+        }
+
+        /* Encabezado */
+        header {
+            background-color: #e50914;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #ffffff;
+        }
+
+        /* Contenido principal */
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: #e50914;
+        }
+
+        textarea, input[type="number"] {
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #e50914;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #f40612;
+        }
+
+        /* Lista de recomendaciones */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            background-color: #222222;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .movie-title {
+            font-weight: bold;
+            font-size: 1.5em;
+            color: #e50914;
+        }
+
+        .movie-rating {
+            color: #46d369;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .movie-overview {
+            margin-top: 10px;
+            color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Movie Recommender</h1>
+    </header>
+    <main>
+        <h2>Enter a movie description</h2>
+        <form method="post">
+            <textarea name="description" rows="5" cols="60" placeholder="E.g., A space crew goes on a mysterious mission..." required></textarea><br>
+            <label for="top_n">Number of recommendations:</label>
+            <input type="number" id="top_n" name="top_n" value="5" min="1" max="20"><br>
+            <input type="submit" value="Get Recommendations">
+        </form>
+
+        {% if results %}
+            <h2>Recommended Movies:</h2>
+            <ul>
+            {% for movie in results %}
+                <li>
+                    <span class="movie-title">{{ movie.original_title }}</span>
+                    <span class="movie-rating">Rating: {{ movie.vote_average }}</span>
+                    <p class="movie-overview">{{ movie.overview }}</p>
+                </li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </main>
+</body>
+</html>
